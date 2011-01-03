@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% load uni_form_tags %}
+
+{% block title %}Register for a New Account{% endblock %}
+
+{% block content %}
+    <h2>Register:</h2>
+    <form action="" method="post" class="uniForm">{% csrf_token %}
+        {{ form|as_uni_form }}
+        <p><input type="submit" name="bsignup'" value="Sign up"> </p>
+    </form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load uni_form_tags %}
+
+{% block title %}Add New Shipment{% endblock %}
+
+{% block content %}
+    <form action="." method="post" class="uniForm">{% csrf_token %}
+        {{ form|as_uni_form }}
+        <p><input type="submit" value="Track" /></p>
+    </form>
+{% endblock %}

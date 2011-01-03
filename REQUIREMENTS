@@ -1,0 +1,3 @@
+django
+django_registration
+-e git+git://github.com/tarequeh/openshipping.git#egg=shipping

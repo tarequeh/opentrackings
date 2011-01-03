@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock  %}
+
+{% block content %}
+    {% if msg %}
+        <p class="warning">{{ msg }}</p>
+    {% endif %}
+    
+    {% if form2.errors %}
+        <div class="errors">
+            <p>Please correct errors below:</p>
+            {% if form2.username.errors %} 
+                <span class="error">{{ form2.username.errors|join:", " }}</span>
+            {% endif %}
+            {% if form2.password.errors %} 
+                <span class="error">{{ form2.password.errors|join:", " }}</span>
+            {% endif %}
+        </div>
+    {% endif %}
+    
+    {% if form1.errors %}
+        <div class="errors">
+            <p><span class="error">{{ form1.openid_url.errors|join:", " }}</span></p>
+        </div>
+    {% endif %}
+    
+    <h2>Make a choice:</h2>
+    <div class="login">
+        <div class="loginleft">
+            <form id="auth_form" name="auth_form" action="{% url user_signin %}" method="post">{% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <fieldset>
+                    <legend>Sign In Using Your Account ID</legend>
+                    <div class="form-row"><label for="id_username">User Name</label><br />{{ form2.username }}</div>
+                    <div class="form-row"><label for="id_password">Password</label><br />{{ form2.password }}</div>
+                    <div class="submit-row"><input type="submit" name="blogin" value="Sign In"></div>
+                </fieldset>	
+            </form>
+        </div>
+        <div class="loginleft">
+            <form id="openid_form" name="openid_form" action="{% url user_signin %}" method="post">{% csrf_token %}
+                <input type="hidden" name="action" value="verify" />
+                <input type="hidden" name="next" value="{{ next }}" />
+                <fieldset>
+                    <legend>Sign In Using Your OpenID URL</legend>
+                    <div id="openid_choice">
+                        <p>Please click your account provider:</p>
+                        <div id="openid_btns"></div>
+                    </div>
+                    <div id="openid_input_area">
+                        <label for="id_openid_url">OpenId URL :</label>{{ form1.openid_url }}
+                        <input name="openid_submit" type="submit" value="Sign in with OpenID">
+                    </div>
+                </fieldset>
+            </form>
+        </div>	
+    </div>	
+{% endblock %}
+    
+{% block extra_scripts %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}/js/openid-jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        openid.init('id_openid_url');
+    });
+    </script>
+    <!-- /Simple OpenID Selector -->
+{% endblock %}

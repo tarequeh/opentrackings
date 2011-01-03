@@ -1,0 +1,12 @@
+<div id="userbar">
+    <div class="userbarright">
+        {% if user.is_authenticated %}
+            Welcome <span>{{ user }}</span> | <a href="{% url user_signout %}">Signout</a>
+        {% else %}
+            <a href="{% url user_signin %}">Sign in with OpenID</a> or <a href="{% url registration_register %}">Register</a> 
+        {% endif %}
+    </div>
+</div>
+<div id="header">
+    <h1><a href="{% url opentrackings_index %}">OpenTrackings</a></h1>
+</div>

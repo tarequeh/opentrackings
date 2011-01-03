@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}View Shipment{% endblock %}
+
+{% block content %}
+    {% if shipment.is_delivered %}
+        <div class='info'><p>Congratulations! Your shipment was delivered!</p></div>
+    {% endif %}
+    <h2>{{ shipment.tracking_number }}</h2>
+
+    <h3>Packages:</h3>    
+    {% for package in shipment.packages.all %}
+        <h4>package.tracking_number</h4>
+        <h5>Activities:</h5>
+        {% for activity in package.activites.all %}
+            <div class="posted">Activity recorded on: <span>{{ activity.time|date:"g:i A, j N Y" }}</span></div>
+            <p><strong>Status: </strong>{{ activity.status_description|default:"N/A" }}</p>
+            <p><strong>City: </strong>{{ activity.address.city|default:"N/A" }}</p>
+            <p><strong>State/Province: </strong>{{ activity.address.state_province|default:"N/A" }}</p>
+            <p><strong>Zip Code: </strong>{{ activity.address.zipcode|default:"N/A" }}</p>
+            <p><strong>Country: </strong>{{ activity.address.country }}</p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
